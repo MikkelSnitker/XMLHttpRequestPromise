@@ -86,22 +86,22 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
     };
     XMLHttpRequestPromise.get = function (url, options) {
         if (options === void 0) { options = "text"; }
-        var xhr = new exports.XMLHttpRequest();
+        var xhr = new XMLHttpRequestPromise();
         return xhr.get(url, options);
     };
     XMLHttpRequestPromise.post = function (url, body, options) {
         if (options === void 0) { options = "text"; }
-        var xhr = new exports.XMLHttpRequest();
+        var xhr = new XMLHttpRequestPromise();
         return xhr.post(url, body, options);
     };
-    exports.XMLHttpRequest.put = function (url, body, options) {
+    XMLHttpRequestPromise.put = function (url, body, options) {
         if (options === void 0) { options = "text"; }
-        var xhr = new exports.XMLHttpRequest();
+        var xhr = new XMLHttpRequestPromise();
         return xhr.put(url, body, options);
     };
     XMLHttpRequestPromise.delete = function (url, options) {
         if (options === void 0) { options = "text"; }
-        var xhr = new exports.XMLHttpRequest();
+        var xhr = new XMLHttpRequestPromise();
         return xhr.delete(url, options);
     };
     return XMLHttpRequestPromise;

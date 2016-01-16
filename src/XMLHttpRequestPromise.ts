@@ -134,22 +134,22 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
     }
 
     XMLHttpRequestPromise.get = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequestPromise();
         return xhr.get(url, options);
     }
 
     XMLHttpRequestPromise.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequestPromise();
         return xhr.post(url, body, options);
     }
 
-    XMLHttpRequest.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
-        var xhr = new XMLHttpRequest();
+    XMLHttpRequestPromise.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+        var xhr = new XMLHttpRequestPromise();
         return xhr.put(url, body, options);
     }
 
     XMLHttpRequestPromise.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequestPromise();
         return xhr.delete(url, options);
     }
     return XMLHttpRequestPromise;
