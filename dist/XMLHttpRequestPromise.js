@@ -3,7 +3,6 @@
 var es6_promise_1 = require('es6-promise');
 var XMLHttpRequest1 = require('XMLHttpRequest');
 exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
-    var _this = this;
     function setOptions(xhr, options) {
         if (typeof options === "string") {
             xhr.responseType = options;
@@ -17,6 +16,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         }
     }
     XMLHttpRequestPromise.prototype.get = function (url, options) {
+        var _this = this;
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("GET", url);
@@ -34,6 +34,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         });
     };
     XMLHttpRequestPromise.prototype.post = function (url, body, options) {
+        var _this = this;
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("POST", url);
@@ -51,6 +52,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         });
     };
     XMLHttpRequestPromise.prototype.put = function (url, body, options) {
+        var _this = this;
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("PUT", url);
@@ -68,6 +70,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         });
     };
     XMLHttpRequestPromise.prototype.delete = function (url, options) {
+        var _this = this;
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("DELETE", url);

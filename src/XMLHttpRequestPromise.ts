@@ -53,7 +53,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
     }
 
 
-    XMLHttpRequestPromise.prototype.get = <T>(url: string, options: string | Options = "text"): Promise<T> =>{
+    XMLHttpRequestPromise.prototype.get = function<T>(url: string, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("GET", url);
             this._setOptions(options);
@@ -74,7 +74,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
         });
     }
 
-    XMLHttpRequestPromise.prototype.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.prototype.post = function<T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("POST", url);
             this._setOptions(options);
@@ -94,7 +94,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
         });
     }
 
-    XMLHttpRequestPromise.prototype.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.prototype.put = function<T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("PUT", url);
             this._setOptions(options);
@@ -114,7 +114,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
         });
     }
 
-    XMLHttpRequestPromise.prototype.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.prototype.delete = function<T>(url: string, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("DELETE", url);
             this._setOptions(options);
@@ -133,22 +133,22 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
         });
     }
 
-    XMLHttpRequestPromise.get = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.get = function<T>(url: string, options: string | Options = "text"): Promise<T>{
         var xhr = new XMLHttpRequestPromise();
         return xhr.get(url, options);
     }
 
-    XMLHttpRequestPromise.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.post = function<T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
         var xhr = new XMLHttpRequestPromise();
         return xhr.post(url, body, options);
     }
 
-    XMLHttpRequestPromise.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.put = function<T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
         var xhr = new XMLHttpRequestPromise();
         return xhr.put(url, body, options);
     }
 
-    XMLHttpRequestPromise.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.delete = function<T>(url: string, options: string | Options = "text"): Promise<T>{
         var xhr = new XMLHttpRequestPromise();
         return xhr.delete(url, options);
     }
