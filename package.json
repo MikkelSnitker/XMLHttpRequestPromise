@@ -1,5 +1,5 @@
 {
-  "name": "XMLHttpRequestPromises",
+  "name": "XMLHttpRequestPromise",
   "version": "0.0.1",
   "description": "Promises wrapper for XMLHttpRequest",
   "main": "dist/XMLHttpRequestPromise.js",
