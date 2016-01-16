@@ -11,45 +11,7 @@ interface Options {
 
 }
 
-interface XMLHttpRequest {
-    msCaching: string;
-    onreadystatechange: (ev: ProgressEvent) => any;
-    readyState: number;
-    response: any;
-    responseBody: any;
-    responseText: string;
-    responseType: string;
-    responseXML: any;
-    status: number;
-    statusText: string;
-    timeout: number;
-    upload: XMLHttpRequestUpload;
-    withCredentials: boolean;
-    abort(): void;
-    getAllResponseHeaders(): string;
-    getResponseHeader(header: string): string;
-    msCachingEnabled(): boolean;
-    open(method: string, url: string, async?: boolean, user?: string, password?: string): void;
-    overrideMimeType(mime: string): void;
-    send(data?: Document): void;
-    send(data?: string): void;
-    send(data?: any): void;
-    setRequestHeader(header: string, value: string): void;
-    DONE: number;
-    HEADERS_RECEIVED: number;
-    LOADING: number;
-    OPENED: number;
-    UNSENT: number;
-    addEventListener(type: "abort", listener: (ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "error", listener: (ev: ErrorEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: "load", listener: (ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "loadend", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: "loadstart", listener: (ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "progress", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: "readystatechange", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: "timeout", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-
+interface XMLHttpRequestPromise extends XMLHttpRequest {
     get<T>(url: string, options: string | Options): Promise<T>;
     put<T>(url: string, data: any, options: string | Options): Promise<T>;
     post<T>(url: string, data: any, options: string | Options): Promise<T>;
@@ -58,9 +20,10 @@ interface XMLHttpRequest {
 
 
 
-interface XMLHttpRequestConstructor {
-    prototype: XMLHttpRequest;
-    new (): XMLHttpRequest;
+
+interface XMLHttpRequestPromiseConstructor {
+    prototype: XMLHttpRequestPromise;
+    new (): XMLHttpRequestPromise;
     DONE: number;
     HEADERS_RECEIVED: number;
     LOADING: number;
@@ -73,7 +36,7 @@ interface XMLHttpRequestConstructor {
     delete<T>(url: string, options: string | Options): Promise<T>;
 }
 
-export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestConstructor) {
+export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConstructor) {
 
     function setOptions(xhr: XMLHttpRequest, options: string | Options) {
         if (typeof options === "string") {
@@ -89,7 +52,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestConstructor)
     }
 
 
-    XMLHttpRequest.prototype.get = <T>(url: string, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.prototype.get = <T>(url: string, options: string | Options = "text"): Promise<T> =>{
         return new Promise<T>((resolve, reject) => {
             this.open("GET", url);
             this._setOptions(options);
@@ -110,7 +73,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestConstructor)
         });
     }
 
-    XMLHttpRequest.prototype.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.prototype.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
         return new Promise<T>((resolve, reject) => {
             this.open("POST", url);
             this._setOptions(options);
@@ -130,7 +93,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestConstructor)
         });
     }
 
-    XMLHttpRequest.prototype.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.prototype.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
         return new Promise<T>((resolve, reject) => {
             this.open("PUT", url);
             this._setOptions(options);
@@ -150,7 +113,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestConstructor)
         });
     }
 
-    XMLHttpRequest.prototype.delete = <T>(url: string, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.prototype.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
         return new Promise<T>((resolve, reject) => {
             this.open("DELETE", url);
             this._setOptions(options);
@@ -169,22 +132,22 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestConstructor)
         });
     }
 
-    XMLHttpRequest.get = <T>(url: string, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.get = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
         var xhr = new XMLHttpRequest();
         return xhr.get(url, options);
     }
 
-    XMLHttpRequest.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
         var xhr = new XMLHttpRequest();
         return xhr.post(url, body, options);
     }
 
-    XMLHttpRequest.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
         var xhr = new XMLHttpRequest();
         return xhr.put(url, body, options);
     }
 
-    XMLHttpRequest.delete = <T>(url: string, options: string | Options = "text"): Promise<T>{
+    XMLHttpRequest.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
         var xhr = new XMLHttpRequest();
         return xhr.delete(url, options);
     }
