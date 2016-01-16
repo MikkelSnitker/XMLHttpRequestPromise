@@ -20,7 +20,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("GET", url);
-            _this._setOptions(_this, options);
+            setOptions(_this, options);
             _this.onload = function () {
                 resolve(_this.response);
             };
@@ -38,7 +38,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("POST", url);
-            _this._setOptions(_this, options);
+            setOptions(_this, options);
             _this.onload = function () {
                 resolve(_this.response);
             };
@@ -56,7 +56,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("PUT", url);
-            _this._setOptions(_this, options);
+            setOptions(_this, options);
             _this.onload = function () {
                 resolve(_this.response);
             };
@@ -74,7 +74,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
         if (options === void 0) { options = "text"; }
         return new es6_promise_1.Promise(function (resolve, reject) {
             _this.open("DELETE", url);
-            _this._setOptions(_this, options);
+            setOptions(_this, options);
             _this.onload = function () {
                 resolve(_this.response);
             };
