@@ -56,7 +56,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
     XMLHttpRequestPromise.prototype.get = function<T>(url: string, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("GET", url);
-            this._setOptions(options);
+            this._setOptions(this, options);
 
             this.onload = () => {
                 resolve(this.response);
@@ -77,7 +77,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
     XMLHttpRequestPromise.prototype.post = function<T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("POST", url);
-            this._setOptions(options);
+            this._setOptions(this, options);
             this.onload = () => {
                 resolve(this.response);
             };
@@ -97,7 +97,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
     XMLHttpRequestPromise.prototype.put = function<T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("PUT", url);
-            this._setOptions(options);
+            this._setOptions(this, options);
             this.onload = () => {
                 resolve(this.response);
             };
@@ -117,7 +117,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
     XMLHttpRequestPromise.prototype.delete = function<T>(url: string, options: string | Options = "text"): Promise<T>{
         return new Promise<T>((resolve, reject) => {
             this.open("DELETE", url);
-            this._setOptions(options);
+            this._setOptions(this, options);
             this.onload = () => {
                 resolve(this.response);
             };
