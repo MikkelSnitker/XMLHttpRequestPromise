@@ -12,10 +12,10 @@ interface Options {
 }
 
 interface XMLHttpRequestPromise extends XMLHttpRequest {
-    get<T>(url: string, options: string | Options): Promise<T>;
-    put<T>(url: string, data: any, options: string | Options): Promise<T>;
-    post<T>(url: string, data: any, options: string | Options): Promise<T>;
-    delete<T>(url: string, options: string | Options): Promise<T>;
+    get<T>(url: string, options?: string | Options): Promise<T>;
+    put<T>(url: string, data: any, options?: string | Options): Promise<T>;
+    post<T>(url: string, data: any, options?: string | Options): Promise<T>;
+    delete<T>(url: string, options?: string | Options): Promise<T>;
 }
 
 
@@ -30,15 +30,15 @@ interface XMLHttpRequestPromiseConstructor {
     OPENED: number;
     UNSENT: number;
     create(): XMLHttpRequest;
-    get<T>(url: string, options: string | Options): Promise<T>;
-    put<T>(url: string, data: any, options: string | Options): Promise<T>;
-    post<T>(url: string, data: any, options: string | Options): Promise<T>;
-    delete<T>(url: string, options: string | Options): Promise<T>;
+    get<T>(url: string, options?: string | Options): Promise<T>;
+    put<T>(url: string, data: any, options?: string | Options): Promise<T>;
+    post<T>(url: string, data: any, options?: string | Options): Promise<T>;
+    delete<T>(url: string, options?: string | Options): Promise<T>;
 }
 
 export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConstructor) {
 
-    function setOptions(xhr: XMLHttpRequest, options: string | Options) {
+    function setOptions(xhr: XMLHttpRequest, options?: string | Options) {
         if (typeof options === "string") {
             xhr.responseType = options;
         } else if (typeof options === "object") {
