@@ -1,0 +1,27 @@
+{
+  "name": "XMLHttpRequestPromises",
+  "version": "0.0.1",
+  "description": "Promises wrapper for XMLHttpRequest",
+  "main": "dist/XMLHttpRequestPromise.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikkelSnitker/XMLHttpRequestPromises.git"
+  },
+  "author": {
+    "name": "Mikkel Snitker"
+  },
+  "scripts": {
+    "tsc": "tsc -p src"
+  },
+  "bugs": {
+    "url": "https://github.com/MikkelSnitker/XMLHttpRequestPromises/issues"
+  },
+  "devDependencies": {
+ 
+    "typescript": "^1.7.3"
+  },
+  "dependencies": {
+    "es6-promise": "*",
+    "XMLHttpRequest": "git+https://github.com/MikkelSnitker/XMLHttpRequest.git"
+  }
+}
