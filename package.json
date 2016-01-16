@@ -5,7 +5,7 @@
   "main": "dist/XMLHttpRequestPromise.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MikkelSnitker/XMLHttpRequestPromises.git"
+    "url": "git+https://github.com/MikkelSnitker/XMLHttpRequestPromise.git"
   },
   "author": {
     "name": "Mikkel Snitker"
@@ -14,7 +14,7 @@
     "tsc": "tsc -p src"
   },
   "bugs": {
-    "url": "https://github.com/MikkelSnitker/XMLHttpRequestPromises/issues"
+    "url": "https://github.com/MikkelSnitker/XMLHttpRequestPromise/issues"
   },
   "devDependencies": {
  
