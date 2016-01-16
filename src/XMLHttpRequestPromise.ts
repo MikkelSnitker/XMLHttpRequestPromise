@@ -1,3 +1,4 @@
+
 ///<reference path="../typings/es6-promises/es6-promises.d.ts" />
 ///<reference path="../typings/XMLHttpRequest/XMLHttpRequest.d.ts" />
 
@@ -36,7 +37,7 @@ interface XMLHttpRequestPromiseConstructor {
     delete<T>(url: string, options?: string | Options): Promise<T>;
 }
 
-export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConstructor) {
+export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromiseConstructor) {
 
     function setOptions(xhr: XMLHttpRequest, options?: string | Options) {
         if (typeof options === "string") {
@@ -52,7 +53,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConst
     }
 
 
-    XMLHttpRequest.prototype.get = <T>(url: string, options: string | Options = "text"): Promise<T> =>{
+    XMLHttpRequestPromise.prototype.get = <T>(url: string, options: string | Options = "text"): Promise<T> =>{
         return new Promise<T>((resolve, reject) => {
             this.open("GET", url);
             this._setOptions(options);
@@ -73,7 +74,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConst
         });
     }
 
-    XMLHttpRequest.prototype.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.prototype.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
         return new Promise<T>((resolve, reject) => {
             this.open("POST", url);
             this._setOptions(options);
@@ -93,7 +94,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConst
         });
     }
 
-    XMLHttpRequest.prototype.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.prototype.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
         return new Promise<T>((resolve, reject) => {
             this.open("PUT", url);
             this._setOptions(options);
@@ -113,7 +114,7 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConst
         });
     }
 
-    XMLHttpRequest.prototype.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.prototype.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
         return new Promise<T>((resolve, reject) => {
             this.open("DELETE", url);
             this._setOptions(options);
@@ -132,12 +133,12 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConst
         });
     }
 
-    XMLHttpRequest.get = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.get = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
         var xhr = new XMLHttpRequest();
         return xhr.get(url, options);
     }
 
-    XMLHttpRequest.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>=>{
         var xhr = new XMLHttpRequest();
         return xhr.post(url, body, options);
     }
@@ -147,132 +148,9 @@ export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestPromiseConst
         return xhr.put(url, body, options);
     }
 
-    XMLHttpRequest.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
+    XMLHttpRequestPromise.delete = <T>(url: string, options: string | Options = "text"): Promise<T>=>{
         var xhr = new XMLHttpRequest();
         return xhr.delete(url, options);
     }
-    return XMLHttpRequest;
-})(<any>XMLHttpRequest1);
- 
-  //   export var XMLHttpRequest = XMLHttpRequestPromise;
-  
- 
-/*
-export class XMLHttpRequestPromise extends XMLHttpRequest
-{
-    
-    private _setOptions(options:string|Options = "text"){
-        if(typeof options ==="string"){
-                this.responseType = options;
-            } else if(typeof options === "object") {
-                Object.keys((<any>options & options.headers) || {} ).forEach(name=>{
-                    this.setRequestHeader(name, options.headers[name]);
-                });
-                
-                if(options.responseType)
-                    this.responseType = options.responseType;
-            }
-    }
-    public get<T>(url:string, options:string|Options = "text"):Promise<T>{
-        return new Promise<T>((resolve,reject)=>{
-            this.open("GET", url);
-            this._setOptions(options);
-            
-            this.onload = ()=>{
-                resolve(this.response);
-            };     
-            
-            
-            this.onerror = ()=>{
-                var error ={};
-                error[this.status] = this.statusText;
-                error["body"] = this.response;
-                reject(error);
-            }
-            
-            this.send();
-        });
-    }
-    
-     public post<T>(url:string, body: any, options:string|Options = "text"):Promise<T>{
-        return new Promise<T>((resolve,reject)=>{
-            this.open("POST", url);
-            this._setOptions(options);
-            this.onload = ()=>{
-                resolve(this.response);
-            };     
-            
-            
-            this.onerror = ()=>{
-                var error ={};
-                error[this.status] = this.statusText;
-                error["body"] = this.response;
-                reject(error);
-            }
-            
-            this.send(body);
-        });
-    }
-    
-     public put<T>(url:string, body: any, options:string|Options = "text"):Promise<T>{
-        return new Promise<T>((resolve,reject)=>{
-            this.open("PUT", url);
-            this._setOptions(options);
-            this.onload = ()=>{
-                resolve(this.response);
-            };     
-            
-            
-            this.onerror = ()=>{
-                var error ={};
-                error[this.status] = this.statusText;
-                error["body"] = this.response;
-                reject(error);
-            }
-            
-            this.send(body);
-        });
-    }
-    
-     public delete<T>(url:string, options:string|Options = "text"):Promise<T>{
-        return new Promise<T>((resolve,reject)=>{
-            this.open("DELETE", url);
-            this._setOptions(options);
-            this.onload = ()=>{
-                resolve(this.response);
-            };     
-            
-            this.onerror = ()=>{
-                var error ={};
-                error[this.status] = this.statusText;
-                error["body"] = this.response;
-                reject(error);
-            }
-            
-            this.send();
-        });
-    }
-    
-    static get<T>(url:string, options:string|Options = "text"): Promise<T>{
-       var xhr = new XMLHttpRequestPromise();
-       return xhr.get(url,options);
-    }
-    
-    static post<T>(url:string, body: any, options:string|Options = "text"): Promise<T>{
-       var xhr = new XMLHttpRequestPromise();
-       return xhr.post(url, body,options);
-    }
-    
-    static put<T>(url:string, body: any, options:string|Options = "text"): Promise<T>{
-       var xhr = new XMLHttpRequestPromise();
-       return xhr.put(url, body,options);
-    }
-    
-    static delete<T>(url:string, options:string|Options = "text"): Promise<T>{
-       var xhr = new XMLHttpRequestPromise();
-       return xhr.delete(url,options);
-    }
-    
-}
-
-*/
+    return XMLHttpRequestPromise;
+})(<any>XMLHttpRequest1.XMLHttpRequest);
