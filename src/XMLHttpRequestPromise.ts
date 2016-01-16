@@ -2,17 +2,202 @@
 ///<reference path="../typings/XMLHttpRequest/XMLHttpRequest.d.ts" />
 
 
-import { XMLHttpRequest } from 'XMLHttpRequest'
-import {Promise} from 'es6-promise'
 
+import {Promise} from 'es6-promise'
+import * as XMLHttpRequest1 from 'XMLHttpRequest'
 interface Options {
-    headers?:any;
-    responseType:string;
-    
+    headers?: any;
+    responseType: string;
+
 }
 
+interface XMLHttpRequest {
+    msCaching: string;
+    onreadystatechange: (ev: ProgressEvent) => any;
+    readyState: number;
+    response: any;
+    responseBody: any;
+    responseText: string;
+    responseType: string;
+    responseXML: any;
+    status: number;
+    statusText: string;
+    timeout: number;
+    upload: XMLHttpRequestUpload;
+    withCredentials: boolean;
+    abort(): void;
+    getAllResponseHeaders(): string;
+    getResponseHeader(header: string): string;
+    msCachingEnabled(): boolean;
+    open(method: string, url: string, async?: boolean, user?: string, password?: string): void;
+    overrideMimeType(mime: string): void;
+    send(data?: Document): void;
+    send(data?: string): void;
+    send(data?: any): void;
+    setRequestHeader(header: string, value: string): void;
+    DONE: number;
+    HEADERS_RECEIVED: number;
+    LOADING: number;
+    OPENED: number;
+    UNSENT: number;
+    addEventListener(type: "abort", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "error", listener: (ev: ErrorEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: "load", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "loadend", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: "loadstart", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "progress", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: "readystatechange", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: "timeout", listener: (ev: ProgressEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+
+    get<T>(url: string, options: string | Options): Promise<T>;
+    put<T>(url: string, data: any, options: string | Options): Promise<T>;
+    post<T>(url: string, data: any, options: string | Options): Promise<T>;
+    delete<T>(url: string, options: string | Options): Promise<T>;
+}
+
+
+
+interface XMLHttpRequestConstructor {
+    prototype: XMLHttpRequest;
+    new (): XMLHttpRequest;
+    DONE: number;
+    HEADERS_RECEIVED: number;
+    LOADING: number;
+    OPENED: number;
+    UNSENT: number;
+    create(): XMLHttpRequest;
+    get<T>(url: string, options: string | Options): Promise<T>;
+    put<T>(url: string, data: any, options: string | Options): Promise<T>;
+    post<T>(url: string, data: any, options: string | Options): Promise<T>;
+    delete<T>(url: string, options: string | Options): Promise<T>;
+}
+
+export var XMLHttpRequest = (function(XMLHttpRequest: XMLHttpRequestConstructor) {
+
+    function setOptions(xhr: XMLHttpRequest, options: string | Options) {
+        if (typeof options === "string") {
+            xhr.responseType = options;
+        } else if (typeof options === "object") {
+            Object.keys((<any>options & options.headers) || {}).forEach(name=> {
+                xhr.setRequestHeader(name, options.headers[name]);
+            });
+
+            if (options.responseType)
+                xhr.responseType = options.responseType;
+        }
+    }
+
+
+    XMLHttpRequest.prototype.get = <T>(url: string, options: string | Options = "text"): Promise<T>{
+        return new Promise<T>((resolve, reject) => {
+            this.open("GET", url);
+            this._setOptions(options);
+
+            this.onload = () => {
+                resolve(this.response);
+            };
+
+
+            this.onerror = () => {
+                var error = {};
+                error[this.status] = this.statusText;
+                error["body"] = this.response;
+                reject(error);
+            }
+
+            this.send();
+        });
+    }
+
+    XMLHttpRequest.prototype.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+        return new Promise<T>((resolve, reject) => {
+            this.open("POST", url);
+            this._setOptions(options);
+            this.onload = () => {
+                resolve(this.response);
+            };
+
+
+            this.onerror = () => {
+                var error = {};
+                error[this.status] = this.statusText;
+                error["body"] = this.response;
+                reject(error);
+            }
+
+            this.send(body);
+        });
+    }
+
+    XMLHttpRequest.prototype.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+        return new Promise<T>((resolve, reject) => {
+            this.open("PUT", url);
+            this._setOptions(options);
+            this.onload = () => {
+                resolve(this.response);
+            };
+
+
+            this.onerror = () => {
+                var error = {};
+                error[this.status] = this.statusText;
+                error["body"] = this.response;
+                reject(error);
+            }
+
+            this.send(body);
+        });
+    }
+
+    XMLHttpRequest.prototype.delete = <T>(url: string, options: string | Options = "text"): Promise<T>{
+        return new Promise<T>((resolve, reject) => {
+            this.open("DELETE", url);
+            this._setOptions(options);
+            this.onload = () => {
+                resolve(this.response);
+            };
+
+            this.onerror = () => {
+                var error = {};
+                error[this.status] = this.statusText;
+                error["body"] = this.response;
+                reject(error);
+            }
+
+            this.send();
+        });
+    }
+
+    XMLHttpRequest.get = <T>(url: string, options: string | Options = "text"): Promise<T>{
+        var xhr = new XMLHttpRequest();
+        return xhr.get(url, options);
+    }
+
+    XMLHttpRequest.post = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+        var xhr = new XMLHttpRequest();
+        return xhr.post(url, body, options);
+    }
+
+    XMLHttpRequest.put = <T>(url: string, body: any, options: string | Options = "text"): Promise<T>{
+        var xhr = new XMLHttpRequest();
+        return xhr.put(url, body, options);
+    }
+
+    XMLHttpRequest.delete = <T>(url: string, options: string | Options = "text"): Promise<T>{
+        var xhr = new XMLHttpRequest();
+        return xhr.delete(url, options);
+    }
+    return XMLHttpRequest;
+})(<any>XMLHttpRequest1);
+ 
+  //   export var XMLHttpRequest = XMLHttpRequestPromise;
+  
+ 
+/*
 export class XMLHttpRequestPromise extends XMLHttpRequest
 {
+    
     private _setOptions(options:string|Options = "text"){
         if(typeof options ==="string"){
                 this.responseType = options;
@@ -127,3 +312,4 @@ export class XMLHttpRequestPromise extends XMLHttpRequest
     
 }
 
+*/
