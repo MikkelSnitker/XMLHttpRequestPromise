@@ -43,7 +43,7 @@ export var XMLHttpRequest = (function(XMLHttpRequestPromise: XMLHttpRequestPromi
         if (typeof options === "string") {
             xhr.responseType = options;
         } else if (typeof options === "object") {
-            Object.keys((<any>options & options.headers) || {}).forEach(name=> {
+            Object.keys((<any>options && options.headers) || {}).forEach(name=> {
                 xhr.setRequestHeader(name, options.headers[name]);
             });
 

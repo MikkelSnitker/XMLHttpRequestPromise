@@ -8,7 +8,7 @@ exports.XMLHttpRequest = (function (XMLHttpRequestPromise) {
             xhr.responseType = options;
         }
         else if (typeof options === "object") {
-            Object.keys((options & options.headers) || {}).forEach(function (name) {
+            Object.keys((options && options.headers) || {}).forEach(function (name) {
                 xhr.setRequestHeader(name, options.headers[name]);
             });
             if (options.responseType)
